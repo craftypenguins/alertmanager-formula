@@ -1,0 +1,5 @@
+{% from "alertmanager/map.jinja" import alertmanager with context %}
+
+# THIS FILE IS MANAGED BY SALT
+
+ARGS="--config.file {{ alertmanager.config_file }} --web.external-url {{ alertmanager.external_url }} --storage.path {{ alertmanager.datadir }}"

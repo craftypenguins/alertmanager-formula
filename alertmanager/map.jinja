@@ -1,0 +1,17 @@
+{% import_yaml "alertmanager/defaults.yaml" as defaults %}
+{% import_yaml "alertmanager/osmap.yaml" as osmap %}
+
+{% set os = salt['grains.filter_by'](
+  osmap,
+  merge=salt['pillar.get']('alertmanager:lookup', {}),
+)
+%}
+
+{% do defaults.alertmanager.update(os) %}
+
+{% set alertmanager = salt['pillar.get'](
+  'alertmanager',
+  default=defaults.alertmanager,
+  merge=True,
+)
+%}

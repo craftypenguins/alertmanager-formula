@@ -1,0 +1,13 @@
+alertmanager:
+  datadir: /var/lib/alertmanager
+  config_file: /etc/alertmanager/alertmanager.yml
+  external_url: http://127.0.0.1:9093/
+  global:
+    resolve_timeout: 5m
+  config:
+    receiver: default
+    group_by: "[ instance, alertname, summary ]"
+    group_wait: 5s
+    group_interval: 1m
+    repeat_interval: 5h
+  receivers:
