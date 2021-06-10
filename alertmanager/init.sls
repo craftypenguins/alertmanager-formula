@@ -14,6 +14,7 @@ alertmanager_defaults_config:
     - require:
       - pkg: alertmanager
 
+{% if alertmanager.manage_config %}
 alertmanager_config:
   file.managed:
     - name: {{ alertmanager.config_file }}
@@ -21,6 +22,7 @@ alertmanager_config:
     - template: jinja
     - require:
       - pkg: alertmanager
+{% endif %}
 
 alertmanager_service:
   service.running:
@@ -29,5 +31,7 @@ alertmanager_service:
     - require:
       - pkg: alertmanager
     - watch:
+{% if alertmanager.manage_config %}
       - file: alertmanager_config
+{% endif %}
       - file: alertmanager_defaults_config
